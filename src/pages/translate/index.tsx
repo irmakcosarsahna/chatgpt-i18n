@@ -82,12 +82,11 @@ const Translate: React.FC = (props) => {
 
     return (
         <div className="text-white">
-            <Header />
             <Background />
             <div className="container mx-auto p-4">
-                <p className="my-2">GPT keys is not provided by default now, set your own keys at <Link className="underline" to={"/settings"}>
-                    Settings
-                </Link></p>
+                <p className="my-2">
+                    .
+          </p>
                 <div className="dark flex items-center">
                     <DropdownSelect
                         className="inline-block w-36"

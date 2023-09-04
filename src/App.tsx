@@ -9,10 +9,6 @@ import { useGlobalStore } from "./store";
 const appRouter = createBrowserRouter([
     {
         path: "/",
-        element: <LangingPage />,
-    },
-    {
-        path: "/translate",
         element: <Translate />,
     },
     {
