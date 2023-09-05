@@ -35,6 +35,7 @@ export const intlLanguages: IDropdownSelectOption[] = [
 
 
 export const fileTypes: IDropdownSelectOption[] = [
+    { value: "text", label: "text" },
     { value: "json", label: "json" },
     { value: "yaml", label: "yaml" },
 ];

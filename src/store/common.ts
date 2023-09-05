@@ -3,10 +3,10 @@ import { IUserSetting } from "../interface";
 
 export class CommonStore {
     config: IUserSetting = {
-        apiKey: "your-key",
+        apiKey: "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",
         baseURL: "https://xxx.openai.azure.com",
         deployName: "xxx",
-        serviceProvider: "azure",
+        serviceProvider: "openai",
         model: "gpt-3.5-turbo-0301",
     };
     constructor() {

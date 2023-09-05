@@ -31,9 +31,35 @@ export async function translateService(req: IReqBody) {
             content: `Translate this array: \n\n\n`,
         });
     }
+    console.log('content',content)
+    if(typeof content === 'string') {
+        return await createChatCompletion(
+            {
+                model: "gpt-3.5-turbo",
+                messages: [
+                    ...messages,
+                    {
+                        role: "user",
+                        content: content,
+                    },
+                ]
+            },
+            config
+        )
+            .then((completion) => {
+                return completion.choices[0].message?.content
+            })
+            .catch((err) => {
+                return err;
+            })
+
+        return ;
+    }
+
     const pairs: [string, any][] = [];
     const locale = JSON.parse(content);
     compressValuesInJson(locale, "", pairs);
+
     const { requireTranslation, noTranslation } = groupPairs(pairs);
     console.log({
         pairs,
@@ -109,6 +135,7 @@ export async function translateService(req: IReqBody) {
         .catch((err) => {
             return freezeChunk;
         })
+
     tasks.push(ft);
     chunk = [];
     chunkSize = 0;

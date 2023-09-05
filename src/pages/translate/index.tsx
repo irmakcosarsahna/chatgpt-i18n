@@ -49,7 +49,7 @@ const Translate: React.FC = (props) => {
     const [transContent, setTransContent] = useState("");
     const [extraPrompt, setExtraPrompt] = useState("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [fileType, setFileType] = useState<FileType>("json");
+    const [fileType, setFileType] = useState<FileType>("text");
     const { notify } = useNotification();
     const { commonStore } = useGlobalStore();
 

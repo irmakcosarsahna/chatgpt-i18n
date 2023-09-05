@@ -21,7 +21,7 @@ export function compressValuesInJson (conentJson: any, path: string, pairs: [str
 
 /**
  * group pairs into two category, pairs need to be translated or not
- * @param pairs 
+ * @param pairs
  */
 export function groupPairs (pairs: [string, any][]): {
     requireTranslation: [string, string][],
@@ -36,6 +36,7 @@ export function groupPairs (pairs: [string, any][]): {
             noTranslation.push(pair)
         }
     }
+
     return {
         requireTranslation,
         noTranslation
