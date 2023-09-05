@@ -34,7 +34,7 @@ const Settings: React.FC = (props) => {
                     }}
                 />
                 <TextField
-                    value={`${config.apiKey}`}
+                    value={`${config.apiKey} || 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`}
                     label="API Key"
                     onChange={(v) => {
                         commonStore.updateConfig("apiKey", v);
