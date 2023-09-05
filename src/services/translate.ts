@@ -11,11 +11,12 @@ interface IReqBody {
 
 export async function translateService(req: IReqBody) {
     const { config, content, targetLang, extraPrompt } = req;
+   const isArray = typeof content !== 'string'
     const messages: IMessage[] = [
         {
             role: "system",
-            content: `You are a helpful assistant that translates a i18n locale array content to ${targetLang}. 
-            It's a array structure, contains many strings, translate each of them and make a new array of translated strings.
+            content: `You are a helpful assistant that translates a i18n locale ${isArray ? "array" : "text"} content to ${targetLang}. 
+            It's a array structure, contains many strings, translate each of them and make a new ${isArray ? "array" : "text"} of translated strings.
             Consider all the string as a context to make better translation.\n`,
         },
     ];
@@ -23,15 +24,14 @@ export async function translateService(req: IReqBody) {
         messages.push({
             role: "user",
             content: `Other tips for translation: ${extraPrompt}\n
-            Translate this array: \n\n\n`,
+            Translate this ${isArray ? "array" : "text"}: \n\n\n`,
         });
     } else {
         messages.push({
             role: "user",
-            content: `Translate this array: \n\n\n`,
+            content: `Translate this ${isArray ? "array" : "text"}: \n\n\n`,
         });
     }
-    console.log('content',content)
     if(typeof content === 'string') {
         return await createChatCompletion(
             {
@@ -52,8 +52,6 @@ export async function translateService(req: IReqBody) {
             .catch((err) => {
                 return err;
             })
-
-        return ;
     }
 
     const pairs: [string, any][] = [];
