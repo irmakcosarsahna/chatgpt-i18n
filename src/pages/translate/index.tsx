@@ -45,7 +45,7 @@ loader.init();
 
 const Translate: React.FC = (props) => {
     const [originalContent, setOriginalContent] = useState("");
-    const [lang, setLang] = useState<string>(intlLanguages[1].value);
+    const [lang, setLang] = useState<string>(intlLanguages[0].value);
     const [transContent, setTransContent] = useState("");
     const [extraPrompt, setExtraPrompt] = useState("");
     const [loading, setLoading] = useState<boolean>(false);
