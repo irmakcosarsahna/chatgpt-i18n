@@ -3,7 +3,7 @@ import { IUserSetting } from "../interface";
 
 export class CommonStore {
     config: IUserSetting = {
-        apiKey: "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",
+        apiKey: "",
         baseURL: "https://xxx.openai.azure.com",
         deployName: "xxx",
         serviceProvider: "openai",
