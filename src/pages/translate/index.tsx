@@ -82,11 +82,11 @@ const Translate: React.FC = (props) => {
 
     return (
         <div className="text-white">
+            <Header />
+
             <Background />
             <div className="container mx-auto p-4">
-                <p className="my-2">
-                    .
-          </p>
+
                 <div className="dark flex items-center">
                     <DropdownSelect
                         className="inline-block w-36"
