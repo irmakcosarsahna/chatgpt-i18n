@@ -6,7 +6,7 @@ export function compress(content: string, fileType: FileType): string {
         return fileType === "json"
             ? JSON.stringify(JSON.parse(content))
             : fileType === "text"
-                ? content
+                ? JSON.stringify((content.split('\n') || []))
                 : JSON.stringify(yaml.load(content)) as string;
     } catch (error) {
         throw new Error(`${fileType} is not valid`)

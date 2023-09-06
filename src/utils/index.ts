@@ -1,6 +1,6 @@
-import { IMessage, IUserSetting } from "../interface";
+import {IMessage, IUserSetting} from "../interface";
 
-export function compressValuesInJson (conentJson: any, path: string, pairs: [string, any][]) {
+export function compressValuesInJson(conentJson: any, path: string, pairs: [string, any][]) {
     if (typeof conentJson === 'object') {
         Object.keys(conentJson).forEach(k => {
             let p = path
@@ -23,7 +23,7 @@ export function compressValuesInJson (conentJson: any, path: string, pairs: [str
  * group pairs into two category, pairs need to be translated or not
  * @param pairs
  */
-export function groupPairs (pairs: [string, any][]): {
+export function groupPairs(pairs: [string, any][]): {
     requireTranslation: [string, string][],
     noTranslation: [string, any][]
 } {
@@ -48,6 +48,7 @@ export interface ICreateChatCompletionProps {
     messages: IMessage[];
 
 }
+
 export interface ICreateChatCompletionResponse {
     id: string;
     object: string;
@@ -59,6 +60,7 @@ export interface ICreateChatCompletionResponse {
     };
     choices: { message: { role: string; content: string } }[];
 }
+
 export async function createChatCompletion(props: ICreateChatCompletionProps, config: IUserSetting): Promise<ICreateChatCompletionResponse> {
     let url: string = '';
     const headers: HeadersInit = {

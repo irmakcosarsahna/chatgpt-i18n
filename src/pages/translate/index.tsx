@@ -61,6 +61,7 @@ const Translate: React.FC = (props) => {
             const data = await translateService({
                 content: compressedContent,
                 targetLang: lang,
+                fileType,
                 // fileType,
                 extraPrompt,
                 config: toJS(commonStore.config),

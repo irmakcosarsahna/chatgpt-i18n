@@ -1,22 +1,23 @@
-import { buildJsonByPairs } from "../../api/utils/utils";
-import { IMessage, IUserSetting } from "../interface";
-import { compressValuesInJson, createChatCompletion, groupPairs, matchJSON } from "../utils";
+import {buildJsonByPairs} from "../../api/utils/utils";
+import {IMessage, IUserSetting} from "../interface";
+import {compressValuesInJson, createChatCompletion, groupPairs, matchJSON} from "../utils";
 
 interface IReqBody {
     content: string;
     targetLang: string;
+    fileType: string;
     extraPrompt?: string;
     config: IUserSetting;
 }
 
 export async function translateService(req: IReqBody) {
-    const { config, content, targetLang, extraPrompt } = req;
-   const isArray = typeof content !== 'string'
+    let {config, content, targetLang,fileType, extraPrompt} = req;
+
     const messages: IMessage[] = [
         {
             role: "system",
-            content: `You are a helpful assistant that translates a i18n locale ${isArray ? "array" : "text"} content to ${targetLang}. 
-            It's a array structure, contains many strings, translate each of them and make a new ${isArray ? "array" : "text"} of translated strings.
+            content: `You are a helpful assistant that translates a i18n locale array content to ${targetLang}. 
+            It's a array structure, contains many strings, translate each of them and make a new array of translated strings.
             Consider all the string as a context to make better translation.\n`,
         },
     ];
@@ -24,37 +25,16 @@ export async function translateService(req: IReqBody) {
         messages.push({
             role: "user",
             content: `Other tips for translation: ${extraPrompt}\n
-            Translate this ${isArray ? "array" : "text"}: \n\n\n`,
+            Translate this array: \n\n\n`,
         });
     } else {
         messages.push({
             role: "user",
-            content: `Translate this ${isArray ? "array" : "text"}: \n\n\n`,
+            content: `Translate this array: \n\n\n`,
         });
     }
-    if(typeof content === 'string') {
-        return await createChatCompletion(
-            {
-                model: "gpt-3.5-turbo",
-                messages: [
-                    ...messages,
-                    {
-                        role: "user",
-                        content: content,
-                    },
-                ]
-            },
-            config
-        )
-            .then((completion) => {
-                return completion.choices[0].message?.content
-            })
-            .catch((err) => {
-                return err;
-            })
-    }
-
     const pairs: [string, any][] = [];
+    console.log('girdi')
     const locale = JSON.parse(content);
     compressValuesInJson(locale, "", pairs);
 
@@ -139,6 +119,9 @@ export async function translateService(req: IReqBody) {
     chunkSize = 0;
     const translated = (await Promise.all(tasks)).flatMap((t) => t);
     const nextPairs = (translated.map((t, i) => [requireTranslation[i][0], t]) as [string, string][]).concat(noTranslation);
+    if(fileType === 'text'){
+        return nextPairs.map(([key, value]) => value).join('\n')
+    }
     const result = buildJsonByPairs(nextPairs);
     console.log(result)
     return result;
