@@ -111,7 +111,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
         tasks.push(
             openai
                 .createChatCompletion({
-                    model: "gpt-3.5-turbo",
+                    model: "gpt-4o-mini",
                     messages: [
                         ...messages,
                         {
